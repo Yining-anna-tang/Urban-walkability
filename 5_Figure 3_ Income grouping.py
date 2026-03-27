@@ -1,53 +1,53 @@
 import pandas as pd
 import os
 
-# ===== 配置区：根据不同数据集修改这些路径即可 =====
-input_path_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning机器学习/⑦-20✅top 20（Y2=心理专注）group.csv"
+# ===== Configuration section: modify these paths for different datasets =====
+input_path_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning/machine_learning/07-20_top20_(Y2=mental_focus)_group.csv"
 
-output_dir_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning机器学习/🧠大图P3：分组分析结果（Y2=心理专注）"
+output_dir_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning/machine_learning/Figure_P3_grouped_results_(Y2=mental_focus)"
 
-# ===== 公共的分组函数（保持与Y1一致，确保可比性） =====
+# ===== Common grouping function (kept identical to Y1 to ensure comparability) =====
 def group_pai(pai):
     if pai == 0:
-        return 'T1'   # 极低收入
+        return 'T1'   # Extremely low income
     elif 1 <= pai <= 2:
-        return 'T2'   # 低收入
+        return 'T2'   # Low income
     elif 3 <= pai <= 6:
-        return 'T3'   # 中等收入
+        return 'T3'   # Middle income
     else:
-        return 'T4'   # 高收入
+        return 'T4'   # High income
 
-# ===== 读入Y2数据集 =====
+# ===== Read Y2 dataset =====
 df2 = pd.read_csv(input_path_Y2, encoding='utf-8')
 
-# 生成分组标签
+# Generate group labels
 df2['PAI_Group'] = df2['PAI'].apply(group_pai)
 
-# 新建输出文件夹（如果已存在就跳过）
+# Create output folder (skip if it already exists)
 os.makedirs(output_dir_Y2, exist_ok=True)
 
-# 依次输出T1~T4四个csv，并且去掉PAI_Group列
+# Export T1–T4 four CSV files and remove PAI_Group column
 group_names = ['T1', 'T2', 'T3', 'T4']
 
 for g in group_names:
     sub_df2 = df2[df2['PAI_Group'] == g].copy()
 
-    # 删除分组标签列
+    # Remove grouping label column
     if 'PAI_Group' in sub_df2.columns:
         sub_df2 = sub_df2.drop(columns=['PAI_Group'])
 
-    # 构造当前组的输出文件路径
+    # Construct output file path for current group
     out_path_g = os.path.join(
         output_dir_Y2,
-        f"🧠大图P3：分组分析结果（Y2=心理专注）{g}.csv"
+        f"Figure_P3_grouped_results_(Y2=mental_focus)_{g}.csv"
     )
 
-    # 写出到CSV
+    # Write to CSV
     sub_df2.to_csv(out_path_g, index=False, encoding='utf-8-sig')
 
-    # 控制台提示
-    print(f"{g} 样本量 = {len(sub_df2)}，文件保存至：{out_path_g}")
+    # Console message
+    print(f"{g} sample size = {len(sub_df2)}, file saved to: {out_path_g}")
 
-# 打印一下四组的占比，方便你快速检查分布
-print("\n四组占比（Y2=心理专注）:")
+# Print group proportions for quick distribution check
+print("\nGroup proportions (Y2 = mental focus):")
 print(df2['PAI_Group'].value_counts(normalize=True).round(3))
