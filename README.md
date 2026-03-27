@@ -134,11 +134,6 @@ p < 0.001
 - scikit-learn
 - statsmodels
 
-### Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
 
 ### Run the main model
 
@@ -146,13 +141,6 @@ pip install -r requirements.txt
 python scripts/model_catboost.py
 ```
 
-### Run statistical tests
-
-```bash
-Rscript scripts/statistical_tests.R
-```
-
----
 
 ## Ethical Considerations
 
