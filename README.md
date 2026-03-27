@@ -126,8 +126,7 @@ p < 0.001
 
 ### Requirements
 
-- Python 3.9+
-- R 4.2+
+- Python
 - catboost
 - pandas
 - numpy
