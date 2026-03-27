@@ -3,43 +3,43 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-plt.rcParams['font.sans-serif'] = 'Times new Roman'
+plt.rcParams['font.sans-serif'] = 'Times New Roman'
 plt.rcParams['axes.unicode_minus'] = False
 
-# 1.读取数据，设置变量
-# 第一处修改：文件路径
-data = pd.read_csv(r'/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning机器学习/⑥-2✅全样本（Y=E7心理影响专注）.csv',encoding = "GBK")
+# 1. Load dataset and set variables
+# Update file path
+data = pd.read_csv(r'1_Dataset.csv', encoding="GBK")
 df = pd.DataFrame(data)
+
 from sklearn.model_selection import train_test_split, KFold
 
-# 第二处修改：检查或修改被解释变量为Y
-#
-X = df.drop(['Y'],axis=1)
+# Check or modify dependent variable as Y
+X = df.drop(['Y'], axis=1)
 y = df['Y']
 
-# 划分训练集和测试集
+# Split dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-from sklearn.metrics import root_mean_squared_error
+from sklearn.metrics import mean_squared_error as root_mean_squared_error
 from catboost import CatBoostRegressor
 
-# CatBoost模型参数
+# CatBoost model parameters
 params_cat = {
-    'learning_rate': 0.01,       # 学习率，控制每一步的步长，用于防止过拟合。典型值范围：0.01 - 0.1
-    'iterations': 1000,          # 弱学习器（决策树）的数量
-    'depth': 6,                  # 决策树的深度，控制模型复杂度
-    'eval_metric': 'RMSE',       # 评估指标，这里使用均方根误差（Root Mean Squared Error，简称RMSE）
-    'random_seed': 42,           # 随机种子，用于重现模型的结果
-    'verbose': 500               # 控制CatBoost输出信息的详细程度，每100次迭代输出一次
+    'learning_rate': 0.01,       # Learning rate: step size, prevents overfitting, typical range: 0.01 - 0.1
+    'iterations': 1000,          # Number of weak learners (decision trees)
+    'depth': 6,                  # Depth of trees, controls model complexity
+    'eval_metric': 'RMSE',       # Evaluation metric: Root Mean Squared Error
+    'random_seed': 42,           # Random seed for reproducibility
+    'verbose': 500               # Control output frequency: every 500 iterations
 }
 
-# 准备k折交叉验证
+# Prepare K-Fold cross-validation
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 scores = []
 best_score = np.inf
 best_model = None
 
-# 交叉验证
+# Cross-validation
 for fold, (train_index, val_index) in enumerate(kf.split(X_train, y_train)):
     X_train_fold, X_val_fold = X_train.iloc[train_index], X_train.iloc[val_index]
     y_train_fold, y_val_fold = y_train.iloc[train_index], y_train.iloc[val_index]
@@ -47,61 +47,60 @@ for fold, (train_index, val_index) in enumerate(kf.split(X_train, y_train)):
     model = CatBoostRegressor(**params_cat)
     model.fit(X_train_fold, y_train_fold, eval_set=(X_val_fold, y_val_fold), early_stopping_rounds=100)
 
-    # 预测并计算得分
+    # Predict and calculate score
     y_val_pred = model.predict(X_val_fold)
-    score = root_mean_squared_error(y_val_fold, y_val_pred)  # RMSE
+    score = root_mean_squared_error(y_val_fold, y_val_pred)
 
     scores.append(score)
-    print(f'第 {fold + 1} 折 RMSE: {score}')
+    print(f'Fold {fold + 1} RMSE: {score}')
 
-    # 保存得分最好的模型
+    # Save the best model
     if score < best_score:
         best_score = score
         best_model = model
 
 print(f'Best RMSE: {best_score}')
 
-
-# 模型评估
+# Model evaluation
 from sklearn import metrics
 
-# 预测
-y_pred_four = best_model.predict(X_test)
+# Predict on test set
+y_pred = best_model.predict(X_test)
+y_pred_list = y_pred.tolist()
 
-y_pred_list = y_pred_four.tolist()
 mse = metrics.mean_squared_error(y_test, y_pred_list)
 rmse = np.sqrt(mse)
 mae = metrics.mean_absolute_error(y_test, y_pred_list)
 r2 = metrics.r2_score(y_test, y_pred_list)
 
-print("均方误差 (MSE):", mse)
-print("均方根误差 (RMSE):", rmse)
-print("平均绝对误差 (MAE):", mae)
-print("拟合优度 (R-squared):", r2)
+print("Mean Squared Error (MSE):", mse)
+print("Root Mean Squared Error (RMSE):", rmse)
+print("Mean Absolute Error (MAE):", mae)
+print("R-squared:", r2)
 
-# 模型解释
-# shap解释摘要图
+# Model interpretation with SHAP
 import shap
-# 构建 shap解释器
+
+# Create SHAP explainer
 explainer = shap.TreeExplainer(best_model)
-# 计算测试集的shap值
+
+# Compute SHAP values for test and full dataset
 shap_values = explainer.shap_values(X_test)
 shap_values_numpy = explainer.shap_values(X)
 shap_values_Explanation = explainer(X)
 
 # ===============================
-# 统一字体设置
+# Unified font settings
 # ===============================
 plt.rcParams['font.sans-serif'] = ['Arial']
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.unicode_minus'] = False
-plt.rcParams['font.size'] = 16  # 固定字体大小为16
+plt.rcParams['font.size'] = 16
 
 # ===============================
-# 📊 批量绘制 SHAP 散点图（顶刊风格）
+# 📊 Batch plot SHAP scatter plots
 # ===============================
 
-# ✅ 所有要绘制的特征（根据你提供的最新顺序）
 features = [
     'E6',
     '11_depression',
@@ -126,51 +125,36 @@ features = [
 ]
 
 for i, feat in enumerate(features, start=1):
-    # --- 绘制 shap 散点图 ---
+    # --- Plot SHAP dependence ---
     shap.dependence_plot(
         feat,
         shap_values_Explanation.values,
         X,
         interaction_index=None,
         show=False,
-        dot_size=24   # 散点放大为默认的1.5倍
+        dot_size=24
     )
 
-    # ===== 添加黑色边框 =====
+    # ===== Add black border to dots =====
     ax = plt.gca()
     for coll in ax.collections:
         if hasattr(coll, "set_edgecolor"):
-            coll.set_edgecolor('black')   # 设置边框颜色
-            coll.set_linewidth(0.7)       # 边框线宽（磅）
+            coll.set_edgecolor('black')
+            coll.set_linewidth(0.7)
 
-    # ===== 图形美化 =====
+    # ===== Aesthetic adjustments =====
     plt.xlabel('')
     plt.ylabel('')
     plt.xticks(fontsize=21)
     plt.yticks(fontsize=21)
 
-    # 添加 SHAP=0 横线
+    # Add SHAP=0 horizontal line
     plt.axhline(y=0, color='black', linestyle='-.', linewidth=2)
 
-    # 清理文件名中的特殊字符
+    # Clean filename
     safe_feat = feat.replace(' ', '_').replace('/', '_')
 
-    # 保存为 PDF（保持编号与特征名对应）
-    plt.savefig(f'环境健康⑤：shap-Y2（心理专注）-{i}（{safe_feat}）.pdf', dpi=1000, format='pdf', bbox_inches='tight')
+    # Save as PDF
+    plt.savefig(f'SHAP_Y2_PsychFocus-{i}({safe_feat}).pdf', dpi=1000, format='pdf', bbox_inches='tight')
 
     plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
