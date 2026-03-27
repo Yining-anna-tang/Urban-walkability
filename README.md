@@ -122,6 +122,24 @@ p < 0.001
 
 ---
 
+## Environment
+
+- IDE: **PyCharm 2025.1.2**  
+  Build: `#PY-251.26094.141`, built on June 10, 2025  
+  Source revision: `0f4e379ff77b9`  
+  Licensed to: fuzzes ally  
+  You have a perpetual fallback license for this version.  
+  Subscription is active until December 31, 2099.  
+  Runtime version: `21.0.7+9-b895.130 aarch64 (JCEF 122.1.9)`  
+  VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.  
+  Toolkit: `sun.lwawt.macosx.LWCToolkit`  
+  OS: macOS 14.6  
+  GC: G1 Young Generation, G1 Concurrent GC, G1 Old Generation  
+  Memory: 2048M  
+  CPU Cores: 8  
+  Metal Rendering: ON  
+  Registry: `ide.experimental.ui=true`
+
 ## Reproducing the Analysis
 
 ### Requirements
@@ -132,6 +150,10 @@ p < 0.001
 - numpy
 - scikit-learn
 - statsmodels
+
+### Notes
+
+This project was developed and tested in PyCharm 2025.1.2. It is recommended to use the same or a compatible environment to reliably reproduce the results.
 
 
 ### Run the main model
