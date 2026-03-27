@@ -146,7 +146,7 @@ p < 0.001
 
 - Python
   
-# Machine Learning & Visualization Packages ⚡
+# Machine Learning & Visualization Packages
 This project relies on the following Python packages for machine learning, model training, and visualization.  
 | Package    | Version |
 |------------|---------|
