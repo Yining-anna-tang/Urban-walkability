@@ -145,11 +145,34 @@ p < 0.001
 ### Requirements
 
 - Python
-- catboost
-- pandas
-- numpy
-- scikit-learn
-- statsmodels
+  
+# Machine Learning & Visualization Packages ⚡
+This project relies on the following Python packages for machine learning, model training, and visualization.  
+| Package    | Version |
+|------------|---------|
+| Boruta     | **⚡0.4.3⚡** |
+| catboost   | **⚡1.2.8⚡** |
+| lightgbm   | **⚡4.6.0⚡** |
+| matplotlib | **⚡3.9.4⚡** |
+| matplotlib-inline | **⚡0.1.7⚡** |
+| numpy      | **⚡2.0.2⚡** |
+| openpyxl   | **⚡3.1.5⚡** |
+| optuna     | **⚡4.4.0⚡** |
+| pandas     | **⚡2.3.3⚡** |
+| plotly     | **⚡6.2.0⚡** |
+| scikit-learn | **⚡1.6.1⚡** |
+| scipy      | **⚡1.13.1⚡** |
+| seaborn    | **⚡0.13.2⚡** |
+| shap       | **⚡0.49.1⚡** |
+| statsmodels | **⚡0.14.4⚡** |
+| torch      | **⚡2.7.1⚡** |
+| umap-learn | **⚡0.5.9.post2⚡** |
+| xgboost    | **⚡2.1.4⚡** |
+| PyALE      | **⚡1.2.0⚡** |
+| pygam      | **⚡0.9.1⚡** |
+| torchviz   | **⚡0.0.3⚡** |
+| tqdm       | **⚡4.67.1⚡** |
+> ⚠️ **Note:** Use these versions to ensure full reproducibility of the analysis in this project.
 
 ### Notes
 
