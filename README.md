@@ -159,24 +159,3 @@ Rscript scripts/statistical_tests.R
 This study uses anonymized secondary survey data (CGSS) and supplementary experimental data collected through informed consent. No personally identifiable information is included in this repository.
 
 ---
-
-## Citation
-
-If you use this code or data, please cite:
-
-```bibtex
-@article{urban_walkability_eid_2026,
-  title   = {Urban walkability inadequacy exacerbates emotion-induced distraction under the challenge of e-bikes expansion},
-  author  = {Tang, Yining and collaborators},
-  journal = {Under review},
-  year    = {2026}
-}
-```
-
----
-
-## Contact
-
-**Yining Tang**  
-Email: your-email  
-Affiliation: your-institution
