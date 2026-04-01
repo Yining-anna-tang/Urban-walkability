@@ -1,1 +1,40 @@
+# =========================================================
+# Python dependencies for project reproduction
+# Compatible with: macOS, Windows, Linux
+# Python version: 3.11 recommended
+# =========================================================
 
+
+# ---------------------------------------------------------
+# Data processing & visualization environment (local runs)
+# Used for exploratory analysis, plotting, and SHAP results
+# ---------------------------------------------------------
+
+numpy==1.26.4
+pandas==2.2.2
+scipy==1.11.4
+
+scikit-learn==1.4.2
+matplotlib==3.8.4
+seaborn==0.13.2
+
+openpyxl==3.1.5
+tqdm==4.66.4
+joblib==1.3.2
+
+# Model interpretation
+shap==0.44.1
+
+
+# ---------------------------------------------------------
+# Model training environment (server / HPC / GPU runs)
+# The following libraries were used in training experiments
+# ---------------------------------------------------------
+
+xgboost==2.1.1
+
+# PyTorch version used in experiments:
+#   torch==2.1.2
+# If installing on CPU-only machines:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch==2.1.2
