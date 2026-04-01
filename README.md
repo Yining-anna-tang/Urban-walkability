@@ -84,13 +84,6 @@ We employ **CatBoost**, a gradient boosting algorithm optimized for categorical 
 - demographic characteristics  
 - psychological outcomes (EID)
 
-**Model performance:**
-
-```
-R² = 0.601
-p < 0.001
-```
-
 ---
 
 ### Statistical Analyses
@@ -104,20 +97,33 @@ p < 0.001
 ## Repository Structure
 
 ```
-├── data/
-│   ├── raw/                # Original survey and experimental data (restricted access)
-│   └── processed/          # Cleaned datasets used in analysis
-├── scripts/
-│   ├── data_cleaning.py
-│   ├── feature_engineering.py
-│   ├── model_catboost.py
-│   └── statistical_tests.R
-├── results/
-│   ├── tables/
-│   └── figures/
-├── notebooks/
-│   └── exploratory_analysis.ipynb
-└── README.md
+.
+|-- 0_Dataset.csv
+|
+|-- 1_Figure 3A_ Feature selection.py
+|-- 2_Figure 3B_ Scatter plot of individual features.py
+|
+|-- 3_Figure 4A-B_ Interaction.py
+|-- 4_Figure 4C_ Interaction_2D_PDP.py
+|
+|-- 5_Figure 5_ Income grouping.py
+|
+|-- 6_Figure 6_6A_QCA analysis.py
+|-- 7_Figure 6_6B_QCA analysis.py
+|
+|-- 8_Extended Data Figure 1_ Comparison of Machine Learning Models.py
+|
+|-- 9_Extended Data Figure 2_A-C.py
+|-- 10_Extended Data Figure 2_E_step 1.py
+|-- 11_Extended Data Figure 2_E_step 2.py
+|
+|-- 12_Extended Data Figure 3_A.py
+|-- 13_Extended Data Figure 3_B.py
+|-- 14_Extended Data Figure 3_C.py
+|-- 15_Extended Data Figure 3_D.py
+|
+|-- LICENSE
+`-- README.md
 ```
 
 ---
