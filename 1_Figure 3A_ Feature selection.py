@@ -23,8 +23,8 @@ plt.rcParams['font.sans-serif'] = 'Arial'
 plt.rcParams['axes.unicode_minus'] = False
 
 # ===================== Paths and output directory =====================
-base_dir = os.path.dirname(__file__)  # 脚本所在目录
-data_file = '0_Dataset.csv'           # GitHub 数据文件
+base_dir = os.path.dirname(__file__) 
+data_file = '0_Dataset.csv'           
 output_dir = os.path.join(base_dir, 'ML_results')
 os.makedirs(output_dir, exist_ok=True)
 
