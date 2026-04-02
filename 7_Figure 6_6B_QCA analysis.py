@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import networkx as nx
 from pathlib import Path
+import os
 
 # ===== Global font settings =====
 matplotlib.rcParams["font.family"] = "Arial"
@@ -98,9 +99,9 @@ def draw_network(G, pos, pdf_path):
 
 # ===== Main execution =====
 def main():
-    root = Path("/Users/yiningtang/PycharmProjects/pythonProject1/qca_project")
-    outdir = root / "results"
-    outdir.mkdir(exist_ok=True)
+    base_dir = os.path.dirname(__file__)        
+    outdir  = os.path.join(base_dir, 'results')
+    os.makedirs(outdir , exist_ok=True)
 
     threshold = 0.70
     pos = compute_layout(T1, NODES, threshold)
@@ -115,7 +116,7 @@ def main():
     figures = []
     for filename, matrix in datasets:
         G = build_graph(matrix, NODES, threshold)
-        fig = draw_network(G, pos, outdir / filename)
+        fig = draw_network(G, pos, os.path.join(outdir, filename))
         figures.append(fig)
 
     for fig in figures:

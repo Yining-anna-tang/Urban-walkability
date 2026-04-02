@@ -22,7 +22,7 @@ plt.rcParams['axes.unicode_minus'] = False
 # Load dataset and split
 # ===============================
 # Update dataset path
-data = pd.read_csv(r'1_Dataset.csv', encoding="GBK")
+data = pd.read_csv(r'0_Dataset.csv', encoding="utf-8")
 df = pd.DataFrame(data)
 X = df.drop(['Y'], axis=1)
 y = df['Y']

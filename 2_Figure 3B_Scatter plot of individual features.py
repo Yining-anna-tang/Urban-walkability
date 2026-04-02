@@ -8,7 +8,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 1. Load dataset and set variables
 # Update file path
-data = pd.read_csv(r'1_Dataset.csv', encoding="GBK")
+data = pd.read_csv(r'0_full sample dataset.csv', encoding="utf-8")
 df = pd.DataFrame(data)
 
 from sklearn.model_selection import train_test_split, KFold

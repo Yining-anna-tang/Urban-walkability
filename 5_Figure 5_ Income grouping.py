@@ -2,9 +2,9 @@ import pandas as pd
 import os
 
 # ===== Configuration section: modify these paths for different datasets =====
-input_path_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning/machine_learning/07-20_top20_(Y2=mental_focus)_group.csv"
+input_path_Y2 = "0_Dataset.csv"
 
-output_dir_Y2 = "/Users/yiningtang/PycharmProjects/pythonProject1/venv/Machine Learning/machine_learning/Figure_P3_grouped_results_(Y2=mental_focus)"
+output_dir_Y2 = "Figure_P3_grouped_results_(Y2=mental_focus)"
 
 # ===== Common grouping function (kept identical to Y1 to ensure comparability) =====
 def group_pai(pai):

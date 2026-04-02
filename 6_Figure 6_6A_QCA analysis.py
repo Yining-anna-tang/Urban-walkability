@@ -8,17 +8,17 @@ from pathlib import Path
 from sympy import symbols
 from sympy.logic.boolalg import SOPform, simplify_logic
 import matplotlib.pyplot as plt
+import os
 
 # ===== 0) Global parameters =====
 N_CUT = 1
 INCL_CUT = 0.80
 
 # ===== 1) Input & output paths =====
-root = Path("/Users/yiningtang/PycharmProjects/pythonProject1/qca_project")
-data_file = root / "0_dataset.csv"
-
-outdir = root / "results"
-outdir.mkdir(exist_ok=True)
+base_dir = os.path.dirname(__file__) 
+data_file = '0_Dataset.csv'           
+outdir = os.path.join(base_dir, 'results')
+os.makedirs(outdir, exist_ok=True)
 
 # ===== 2) Data loading =====
 def load_and_binarize(csv_path):
@@ -108,19 +108,19 @@ def sufficiency_singletons(df_bin, Ycol, conds):
 
 # ===== 7) Export results =====
 def export_results(tt, keepers, solution, necessity_df, sufficiency_df):
-    with pd.ExcelWriter(outdir / "truth_table.xlsx") as w:
+    with pd.ExcelWriter(os.path.join(outdir, "truth_table.xlsx")) as w:
         tt.to_excel(w, index=False)
 
-    with pd.ExcelWriter(outdir / "truth_table_kept.xlsx") as w:
+    with pd.ExcelWriter(os.path.join(outdir, "truth_table_kept.xlsx")) as w:
         keepers.to_excel(w, index=False)
 
-    with pd.ExcelWriter(outdir / "solution.xlsx") as w:
+    with pd.ExcelWriter(os.path.join(outdir, "solution.xlsx")) as w:
         pd.DataFrame({"solution": [solution]}).to_excel(w, index=False)
 
-    with pd.ExcelWriter(outdir / "necessity.xlsx") as w:
+    with pd.ExcelWriter(os.path.join(outdir, "necessity.xlsx")) as w:
         necessity_df.to_excel(w, index=False)
 
-    with pd.ExcelWriter(outdir / "sufficiency.xlsx") as w:
+    with pd.ExcelWriter(os.path.join(outdir, "sufficiency.xlsx")) as w:
         sufficiency_df.to_excel(w, index=False)
 
     print("\nResults saved to:", outdir)
@@ -143,11 +143,11 @@ def plot_necessity(nec_df):
     ax.set_xlabel("Score")
 
     plt.tight_layout()
-    plt.savefig(outdir / "necessity_plot.pdf")
+    plt.savefig(os.path.join(outdir, "necessity_plot.pdf"))
     plt.show()
 
 # ===== 9) Main execution =====
-if not data_file.exists():
+if not os.path.exists(data_file):
     raise FileNotFoundError(f"Dataset not found: {data_file}")
 
 print("Loading dataset...")
