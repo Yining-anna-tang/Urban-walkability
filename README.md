@@ -185,12 +185,6 @@ This project relies on the following Python packages for machine learning, model
 This project was developed and tested in PyCharm 2025.1.2. It is recommended to use the same or a compatible environment to reliably reproduce the results.
 
 
-### Run the main model
-
-```bash
-python scripts/model_catboost.py
-```
-
 
 ## Ethical Considerations
 
